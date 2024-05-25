@@ -12,3 +12,79 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  UsuarioID Int      @id @default(autoincrement())
+  Nome      String   @db.VarChar(100)
+  Email     String   @unique @db.VarChar(100)
+  Senha     String   @db.VarChar(100)
+  Perfil    Perfil   @relation(fields: [PerfilID], references: [PerfilID])
+  PerfilID  Int
+
+  @@map("Usuario")
+}
+
+model Perfil {
+  PerfilID Int      @id @default(autoincrement())
+  Nome     String   @db.VarChar(100)
+  Usuarios Usuario[]
+
+  PerfilModulo Perfil_Modulo[]
+  @@map("Perfil")
+}
+
+model Modulo {
+  ModuloID Int      @id @default(autoincrement())
+  Nome     String   @db.VarChar(100)
+  
+  PerfilModulo Perfil_Modulo[]
+  ModuloTransacao Modulo_Transacao[]
+  @@map("Modulo")
+}
+
+model Transacao {
+  TransacaoID Int      @id @default(autoincrement())
+  Nome        String   @db.VarChar(100)
+  
+  ModuloTransacao Modulo_Transacao[]
+  TransacaoFuncao Transacao_Funcao[]
+  @@map("Transacao")
+}
+
+model Funcao {
+  FuncaoID Int      @id @default(autoincrement())
+  Nome     String   @db.VarChar(100)
+  
+  TransacaoFuncao Transacao_Funcao[]
+  @@map("Funcao")
+}
+
+model Perfil_Modulo {
+  PerfilID Int
+  ModuloID Int
+  Perfil   Perfil @relation(fields: [PerfilID], references: [PerfilID])
+  Modulo   Modulo @relation(fields: [ModuloID], references: [ModuloID])
+
+  @@id([PerfilID, ModuloID])
+  @@map("Perfil_Modulo")
+}
+
+model Modulo_Transacao {
+  ModuloID     Int
+  TransacaoID  Int
+  Modulo       Modulo       @relation(fields: [ModuloID], references: [ModuloID])
+  Transacao    Transacao    @relation(fields: [TransacaoID], references: [TransacaoID])
+
+  @@id([ModuloID, TransacaoID])
+  @@map("Modulo_Transacao")
+}
+
+model Transacao_Funcao {
+  TransacaoID Int
+  FuncaoID    Int
+  Transacao   Transacao   @relation(fields: [TransacaoID], references: [TransacaoID])
+  Funcao      Funcao      @relation(fields: [FuncaoID], references: [FuncaoID])
+
+  @@id([TransacaoID, FuncaoID])
+  @@map("Transacao_Funcao")
+}
