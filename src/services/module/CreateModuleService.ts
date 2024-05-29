@@ -1,24 +1,24 @@
 import prismaClient from "../../prisma";
 
 interface ModuleRequest {
-  Nome: string;
+  name: string;
 }
 
 export class CreateModuleService {
-  async execute({ Nome }: ModuleRequest) {
-    const moduleAlreadyExists = await prismaClient.modulo.findFirst({
+  async execute({ name }: ModuleRequest) {
+    const moduleAlreadyExists = await prismaClient.module.findFirst({
       where: {
-        Nome,
+        name,
       },
     });
 
     if (moduleAlreadyExists) {
-      throw new Error("Modulo already exists");
+      throw new Error("Module already exists");
     }
 
-    const module = await prismaClient.modulo.create({
+    const module = await prismaClient.module.create({
       data: {
-        Nome,
+        name,
       },
     });
 
