@@ -3,6 +3,7 @@ import { CreateModuleController } from "./controller/module/CreateModuleControll
 import { ListModuleController } from "./controller/module/ListModuleController";
 import { CreateTransactionController } from "./controller/transaction/CreateTransactionController";
 import { ListTransactionController } from "./controller/transaction/ListTransactionController";
+import { CreateFunctionController } from "./controller/function/CreateFunctionController";
 
 export const router = Router();
 
@@ -13,3 +14,6 @@ router.get("/module", new ListModuleController().handle);
 //Transaction
 router.post("/transaction", new CreateTransactionController().handle);
 router.get("/transaction", new ListTransactionController().handle);
+
+//Function
+router.post("/function", new CreateFunctionController().handle);
