@@ -7,29 +7,36 @@ interface TransactionRequest {
 
 export class CreateTransactionService {
   async execute({ moduleId, name }: TransactionRequest) {
-    const TransactionAlreadyExists = await prismaClient.transaction.findFirst({
-      where: {
-        name,
-      },
-    });
+    const transactionAlreadyExistsInModule =
+      await prismaClient.moduleTransaction.findFirst({
+        where: {
+          moduleId,
+          transaction: {
+            name,
+          },
+        },
+        include: {
+          transaction: true,
+        },
+      });
 
-    if (TransactionAlreadyExists) {
-      throw new Error("Transaction already exists");
+    if (transactionAlreadyExistsInModule) {
+      throw new Error("Transaction already exists in this module");
     }
 
-    const Transaction = await prismaClient.transaction.create({
+    const transaction = await prismaClient.transaction.create({
       data: {
         name,
       },
     });
 
-    const ModuleTransaction = await prismaClient.moduleTransaction.create({
+    const moduleTransaction = await prismaClient.moduleTransaction.create({
       data: {
         moduleId: moduleId,
-        transactionId: Transaction?.transactionId,
+        transactionId: transaction.transactionId,
       },
     });
 
-    return { ModuleTransaction };
+    return { moduleTransaction };
   }
 }
