@@ -7,29 +7,36 @@ interface FunctionRequest {
 
 export class CreateFunctionService {
   async execute({ transactionId, name }: FunctionRequest) {
-    const FunctionAlreadyExists = await prismaClient.function.findFirst({
-      where: {
-        name,
-      },
-    });
+    const functionAlreadyExistsInTransaction =
+      await prismaClient.transactionFunction.findFirst({
+        where: {
+          transactionId,
+          function: {
+            name,
+          },
+        },
+        include: {
+          function: true,
+        },
+      });
 
-    if (FunctionAlreadyExists) {
-      throw new Error("Function already exists");
+    if (functionAlreadyExistsInTransaction) {
+      throw new Error("Function already exists in this transaction");
     }
 
-    const Function = await prismaClient.function.create({
+    const _function = await prismaClient.function.create({
       data: {
         name,
       },
     });
 
-    const TransactionFunction = await prismaClient.transactionFunction.create({
+    const transactionFunction = await prismaClient.transactionFunction.create({
       data: {
         transactionId: transactionId,
-        functionId: Function?.functionId,
+        functionId: _function.functionId,
       },
     });
 
-    return { TransactionFunction };
+    return { transactionFunction };
   }
 }
