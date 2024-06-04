@@ -6,11 +6,13 @@ import { ListTransactionController } from "./controller/transaction/ListTransact
 import { CreateFunctionController } from "./controller/function/CreateFunctionController";
 import { ListFunctionController } from "./controller/function/ListFunctionController";
 import { CreateUserController } from "./controller/user/CreateUserController";
+import { AuthUserController } from "./controller/user/AuthUserController";
 
 export const router = Router();
 
 //User
 router.post("/user", new CreateUserController().handle);
+router.post("/session", new AuthUserController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
