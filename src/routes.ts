@@ -5,8 +5,12 @@ import { CreateTransactionController } from "./controller/transaction/CreateTran
 import { ListTransactionController } from "./controller/transaction/ListTransactionController";
 import { CreateFunctionController } from "./controller/function/CreateFunctionController";
 import { ListFunctionController } from "./controller/function/ListFunctionController";
+import { CreateUserController } from "./controller/user/CreateUserController";
 
 export const router = Router();
+
+//User
+router.post("/user", new CreateUserController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
