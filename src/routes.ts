@@ -7,12 +7,14 @@ import { CreateFunctionController } from "./controller/function/CreateFunctionCo
 import { ListFunctionController } from "./controller/function/ListFunctionController";
 import { CreateUserController } from "./controller/user/CreateUserController";
 import { AuthUserController } from "./controller/user/AuthUserController";
+import { ListUserController } from "./controller/user/ListUserController";
 
 export const router = Router();
 
 //User
 router.post("/user", new CreateUserController().handle);
 router.post("/session", new AuthUserController().handle);
+router.get("/user", new ListUserController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
