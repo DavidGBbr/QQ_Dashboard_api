@@ -8,13 +8,15 @@ import { ListFunctionController } from "./controller/function/ListFunctionContro
 import { CreateUserController } from "./controller/user/CreateUserController";
 import { AuthUserController } from "./controller/user/AuthUserController";
 import { ListUserController } from "./controller/user/ListUserController";
+import { DeleteUserController } from "./controller/user/DeleteUserController";
 
 export const router = Router();
 
 //User
-router.post("/user", new CreateUserController().handle);
 router.post("/session", new AuthUserController().handle);
+router.post("/user", new CreateUserController().handle);
 router.get("/user", new ListUserController().handle);
+router.delete("/user", new DeleteUserController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
