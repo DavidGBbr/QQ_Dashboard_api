@@ -9,6 +9,7 @@ import { CreateUserController } from "./controller/user/CreateUserController";
 import { AuthUserController } from "./controller/user/AuthUserController";
 import { ListUserController } from "./controller/user/ListUserController";
 import { DeleteUserController } from "./controller/user/DeleteUserController";
+import { UpdateUserController } from "./controller/user/UpdateUserController";
 
 export const router = Router();
 
@@ -17,6 +18,7 @@ router.post("/session", new AuthUserController().handle);
 router.post("/user", new CreateUserController().handle);
 router.get("/user", new ListUserController().handle);
 router.delete("/user", new DeleteUserController().handle);
+router.patch("/user", new UpdateUserController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
