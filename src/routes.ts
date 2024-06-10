@@ -10,24 +10,37 @@ import { AuthUserController } from "./controller/user/AuthUserController";
 import { ListUserController } from "./controller/user/ListUserController";
 import { DeleteUserController } from "./controller/user/DeleteUserController";
 import { UpdateUserController } from "./controller/user/UpdateUserController";
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 export const router = Router();
 
 //User
 router.post("/session", new AuthUserController().handle);
-router.post("/user", new CreateUserController().handle);
-router.get("/user", new ListUserController().handle);
-router.delete("/user", new DeleteUserController().handle);
-router.patch("/user", new UpdateUserController().handle);
+router.post("/user", isAuthenticated, new CreateUserController().handle);
+router.get("/user", isAuthenticated, new ListUserController().handle);
+router.delete("/user", isAuthenticated, new DeleteUserController().handle);
+router.patch("/user", isAuthenticated, new UpdateUserController().handle);
 
 //Module
-router.post("/module", new CreateModuleController().handle);
-router.get("/module", new ListModuleController().handle);
+router.post("/module", isAuthenticated, new CreateModuleController().handle);
+router.get("/module", isAuthenticated, new ListModuleController().handle);
 
 //Transaction
-router.post("/transaction", new CreateTransactionController().handle);
-router.get("/transaction", new ListTransactionController().handle);
+router.post(
+  "/transaction",
+  isAuthenticated,
+  new CreateTransactionController().handle
+);
+router.get(
+  "/transaction",
+  isAuthenticated,
+  new ListTransactionController().handle
+);
 
 //Function
-router.post("/function", new CreateFunctionController().handle);
-router.get("/function", new ListFunctionController().handle);
+router.post(
+  "/function",
+  isAuthenticated,
+  new CreateFunctionController().handle
+);
+router.get("/function", isAuthenticated, new ListFunctionController().handle);
