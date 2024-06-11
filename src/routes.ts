@@ -11,6 +11,7 @@ import { ListUserController } from "./controller/user/ListUserController";
 import { DeleteUserController } from "./controller/user/DeleteUserController";
 import { UpdateUserController } from "./controller/user/UpdateUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { ListProfileController } from "./controller/profile/ListProfileController";
 
 export const router = Router();
 
@@ -20,6 +21,9 @@ router.post("/user", isAuthenticated, new CreateUserController().handle);
 router.get("/user", isAuthenticated, new ListUserController().handle);
 router.delete("/user", isAuthenticated, new DeleteUserController().handle);
 router.patch("/user", isAuthenticated, new UpdateUserController().handle);
+
+//Profile
+router.get("/profile", isAuthenticated, new ListProfileController().handle);
 
 //Module
 router.post("/module", isAuthenticated, new CreateModuleController().handle);
