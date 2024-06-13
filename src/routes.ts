@@ -12,6 +12,7 @@ import { DeleteUserController } from "./controller/user/DeleteUserController";
 import { UpdateUserController } from "./controller/user/UpdateUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { ListProfileController } from "./controller/profile/ListProfileController";
+import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 
 export const router = Router();
 
@@ -35,11 +36,8 @@ router.post(
   isAuthenticated,
   new CreateTransactionController().handle
 );
-router.get(
-  "/transaction",
-  isAuthenticated,
-  new ListTransactionController().handle
-);
+router.get("/transaction", new ListTransactionController().handle);
+router.put("/transaction", new UpdateTransactionController().handle);
 
 //Function
 router.post(
