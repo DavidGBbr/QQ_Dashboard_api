@@ -13,6 +13,7 @@ import { UpdateUserController } from "./controller/user/UpdateUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { ListProfileController } from "./controller/profile/ListProfileController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
+import { GetUserController } from "./controller/user/GetUserController";
 
 export const router = Router();
 
@@ -20,6 +21,7 @@ export const router = Router();
 router.post("/session", new AuthUserController().handle);
 router.post("/user", isAuthenticated, new CreateUserController().handle);
 router.get("/user", isAuthenticated, new ListUserController().handle);
+router.get("/users/:user_id", isAuthenticated, new GetUserController().handle);
 router.delete("/user", isAuthenticated, new DeleteUserController().handle);
 router.patch("/user", isAuthenticated, new UpdateUserController().handle);
 
