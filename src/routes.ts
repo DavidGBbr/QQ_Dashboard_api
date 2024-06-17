@@ -15,6 +15,7 @@ import { ListProfileController } from "./controller/profile/ListProfileControlle
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 import { GetUserController } from "./controller/user/GetUserController";
 import { GetModuleController } from "./controller/module/GetModuleController";
+import { UpdateModuleController } from "./controller/module/UpdateModuleController";
 
 export const router = Router();
 
@@ -41,6 +42,7 @@ router.get(
   isAuthenticated,
   new GetModuleController().handle
 );
+router.patch("/module", isAuthenticated, new UpdateModuleController().handle);
 
 //Transaction
 router.post(
