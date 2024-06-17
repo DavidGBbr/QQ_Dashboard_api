@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import { CreateModuleController } from "./controller/module/CreateModuleController";
 import { ListModuleController } from "./controller/module/ListModuleController";
 import { CreateTransactionController } from "./controller/transaction/CreateTransactionController";
@@ -14,15 +14,20 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { ListProfileController } from "./controller/profile/ListProfileController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 import { GetUserController } from "./controller/user/GetUserController";
+import { GetModuleController } from "./controller/module/GetModuleController";
 
 export const router = Router();
 
 //User
-router.post("/session", new AuthUserController().handle);
+router.post("/session", isAuthenticated, new AuthUserController().handle);
 router.post("/user", isAuthenticated, new CreateUserController().handle);
 router.get("/user", isAuthenticated, new ListUserController().handle);
 router.get("/users/:user_id", isAuthenticated, new GetUserController().handle);
-router.delete("/user", isAuthenticated, new DeleteUserController().handle);
+router.delete(
+  "/user/:user_id",
+  isAuthenticated,
+  new DeleteUserController().handle
+);
 router.patch("/user", isAuthenticated, new UpdateUserController().handle);
 
 //Profile
@@ -31,6 +36,11 @@ router.get("/profile", isAuthenticated, new ListProfileController().handle);
 //Module
 router.post("/module", isAuthenticated, new CreateModuleController().handle);
 router.get("/module", isAuthenticated, new ListModuleController().handle);
+router.get(
+  "/module/:module_id",
+  isAuthenticated,
+  new GetModuleController().handle
+);
 
 //Transaction
 router.post(
@@ -38,8 +48,16 @@ router.post(
   isAuthenticated,
   new CreateTransactionController().handle
 );
-router.get("/transaction", new ListTransactionController().handle);
-router.put("/transaction", new UpdateTransactionController().handle);
+router.get(
+  "/transaction",
+  isAuthenticated,
+  new ListTransactionController().handle
+);
+router.put(
+  "/transaction",
+  isAuthenticated,
+  new UpdateTransactionController().handle
+);
 
 //Function
 router.post(

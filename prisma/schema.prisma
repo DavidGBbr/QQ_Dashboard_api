@@ -77,8 +77,8 @@ model Function {
 model ProfileModule {
   profileId Int
   moduleId  Int
-  profile   Profile @relation(fields: [profileId], references: [profileId])
-  module    Module  @relation(fields: [moduleId], references: [moduleId])
+  profile   Profile @relation(fields: [profileId], references: [profileId], onDelete: Cascade)
+  module    Module  @relation(fields: [moduleId], references: [moduleId], onDelete: Cascade)
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
@@ -90,8 +90,8 @@ model ProfileModule {
 model ModuleTransaction {
   moduleId      Int
   transactionId Int
-  module        Module      @relation(fields: [moduleId], references: [moduleId])
-  transaction   Transaction @relation(fields: [transactionId], references: [transactionId])
+  module        Module      @relation(fields: [moduleId], references: [moduleId], onDelete: Cascade)
+  transaction   Transaction @relation(fields: [transactionId], references: [transactionId], onDelete: Cascade)
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
