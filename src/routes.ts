@@ -16,55 +16,37 @@ import { UpdateTransactionController } from "./controller/transaction/UpdateTran
 import { GetUserController } from "./controller/user/GetUserController";
 import { GetModuleController } from "./controller/module/GetModuleController";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
+import { DeleteTransactionController } from "./controller/transaction/DeleteTransactionController";
 
 export const router = Router();
 
 //User
-router.post("/session", isAuthenticated, new AuthUserController().handle);
-router.post("/user", isAuthenticated, new CreateUserController().handle);
-router.get("/user", isAuthenticated, new ListUserController().handle);
-router.get("/users/:user_id", isAuthenticated, new GetUserController().handle);
-router.delete(
-  "/user/:user_id",
-  isAuthenticated,
-  new DeleteUserController().handle
-);
-router.patch("/user", isAuthenticated, new UpdateUserController().handle);
+router.post("/session", new AuthUserController().handle);
+router.post("/user", new CreateUserController().handle);
+router.get("/user", new ListUserController().handle);
+router.get("/users/:user_id", new GetUserController().handle);
+router.delete("/user/:user_id", new DeleteUserController().handle);
+router.patch("/user", new UpdateUserController().handle);
 
 //Profile
-router.get("/profile", isAuthenticated, new ListProfileController().handle);
+router.get("/profile", new ListProfileController().handle);
 
 //Module
-router.post("/module", isAuthenticated, new CreateModuleController().handle);
-router.get("/module", isAuthenticated, new ListModuleController().handle);
-router.get(
-  "/module/:module_id",
-  isAuthenticated,
-  new GetModuleController().handle
-);
-router.patch("/module", isAuthenticated, new UpdateModuleController().handle);
+router.post("/module", new CreateModuleController().handle);
+router.get("/module", new ListModuleController().handle);
+router.get("/module", new ListModuleController().handle);
+router.get("/module/:module_id", new GetModuleController().handle);
+router.patch("/module", new UpdateModuleController().handle);
 
 //Transaction
-router.post(
-  "/transaction",
-  isAuthenticated,
-  new CreateTransactionController().handle
-);
-router.get(
-  "/transaction",
-  isAuthenticated,
-  new ListTransactionController().handle
-);
-router.put(
-  "/transaction",
-  isAuthenticated,
-  new UpdateTransactionController().handle
+router.post("/transaction", new CreateTransactionController().handle);
+router.get("/transaction", new ListTransactionController().handle);
+router.put("/transaction", new UpdateTransactionController().handle);
+router.delete(
+  "/transaction/:transaction_id",
+  new DeleteTransactionController().handle
 );
 
 //Function
-router.post(
-  "/function",
-  isAuthenticated,
-  new CreateFunctionController().handle
-);
-router.get("/function", isAuthenticated, new ListFunctionController().handle);
+router.post("/function", new CreateFunctionController().handle);
+router.get("/function", new ListFunctionController().handle);
