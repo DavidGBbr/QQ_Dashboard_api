@@ -17,6 +17,7 @@ import { GetUserController } from "./controller/user/GetUserController";
 import { GetModuleController } from "./controller/module/GetModuleController";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
 import { DeleteTransactionController } from "./controller/transaction/DeleteTransactionController";
+import { GetTransactionController } from "./controller/transaction/GetTransactionController";
 
 export const router = Router();
 
@@ -34,13 +35,16 @@ router.get("/profile", new ListProfileController().handle);
 //Module
 router.post("/module", new CreateModuleController().handle);
 router.get("/module", new ListModuleController().handle);
-router.get("/module", new ListModuleController().handle);
 router.get("/module/:module_id", new GetModuleController().handle);
 router.patch("/module", new UpdateModuleController().handle);
 
 //Transaction
 router.post("/transaction", new CreateTransactionController().handle);
 router.get("/transaction", new ListTransactionController().handle);
+router.get(
+  "/transaction/:transaction_id",
+  new GetTransactionController().handle
+);
 router.put("/transaction", new UpdateTransactionController().handle);
 router.delete(
   "/transaction/:transaction_id",
