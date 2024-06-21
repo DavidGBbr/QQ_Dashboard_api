@@ -18,6 +18,7 @@ import { GetModuleController } from "./controller/module/GetModuleController";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
 import { DeleteTransactionController } from "./controller/transaction/DeleteTransactionController";
 import { GetTransactionController } from "./controller/transaction/GetTransactionController";
+import { CreateProfileController } from "./controller/profile/CreateProfileController";
 
 export const router = Router();
 
@@ -30,6 +31,7 @@ router.delete("/user/:user_id", new DeleteUserController().handle);
 router.patch("/user", new UpdateUserController().handle);
 
 //Profile
+router.post("/profile", new CreateProfileController().handle);
 router.get("/profile", new ListProfileController().handle);
 
 //Module

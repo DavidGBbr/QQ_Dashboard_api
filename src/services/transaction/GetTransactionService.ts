@@ -16,11 +16,21 @@ export class GetTransactionService {
           name: true,
           createdAt: true,
           updatedAt: true,
+          moduleTransaction: {
+            select: {
+              module: {
+                select: {
+                  moduleId: true,
+                  name: true,
+                },
+              },
+            },
+          },
         },
       });
       return response;
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error.message);
     }
   }
 }
