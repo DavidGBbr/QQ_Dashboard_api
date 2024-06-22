@@ -4,10 +4,14 @@ import { UpdateTransactionService } from "../../services/transaction/UpdateTrans
 export class UpdateTransactionController {
   async handle(request: Request, response: Response) {
     const { transactionId, name, moduleId } = request.body;
-    const updateUser = new UpdateTransactionService();
+    const updateTransaction = new UpdateTransactionService();
 
-    const user = await updateUser.execute({ transactionId, name, moduleId });
+    const transaction = await updateTransaction.execute({
+      transactionId,
+      name,
+      moduleId,
+    });
 
-    return response.json(user);
+    return response.json(transaction);
   }
 }

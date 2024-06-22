@@ -19,6 +19,7 @@ import { UpdateModuleController } from "./controller/module/UpdateModuleControll
 import { DeleteTransactionController } from "./controller/transaction/DeleteTransactionController";
 import { GetTransactionController } from "./controller/transaction/GetTransactionController";
 import { CreateProfileController } from "./controller/profile/CreateProfileController";
+import { UpdateFunctionController } from "./controller/function/UpdateFunctionController";
 
 export const router = Router();
 
@@ -56,3 +57,4 @@ router.delete(
 //Function
 router.post("/function", new CreateFunctionController().handle);
 router.get("/function", new ListFunctionController().handle);
+router.put("/function", new UpdateFunctionController().handle);
