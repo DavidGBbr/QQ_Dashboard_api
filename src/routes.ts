@@ -20,6 +20,7 @@ import { DeleteTransactionController } from "./controller/transaction/DeleteTran
 import { GetTransactionController } from "./controller/transaction/GetTransactionController";
 import { CreateProfileController } from "./controller/profile/CreateProfileController";
 import { UpdateFunctionController } from "./controller/function/UpdateFunctionController";
+import { GetFunctionController } from "./controller/function/GetFunctionController";
 
 export const router = Router();
 
@@ -57,4 +58,5 @@ router.delete(
 //Function
 router.post("/function", new CreateFunctionController().handle);
 router.get("/function", new ListFunctionController().handle);
+router.get("/function/:function_id", new GetFunctionController().handle);
 router.put("/function", new UpdateFunctionController().handle);
