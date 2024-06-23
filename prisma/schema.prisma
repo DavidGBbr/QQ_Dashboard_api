@@ -60,7 +60,7 @@ model Transaction {
 model Function {
   functionId Int     @id @default(autoincrement())
   name       String  @db.VarChar(100)
-  
+
   transactionFunction TransactionFunction[]
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
