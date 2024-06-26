@@ -19,8 +19,8 @@ import { ListTransactionController } from "./controller/transaction/ListTransact
 import { ListFunctionController } from "./controller/function/ListFunctionController";
 
 import { UpdateUserController } from "./controller/user/UpdateUserController";
+import { ToggleModuleToProfileController } from "./controller/profile/ToggleModuleToProfileController.ts";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
-import { ToggleTransactionToModuleController } from "./controller/module/ToggleTransactionToModuleController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 import { UpdateFunctionController } from "./controller/function/UpdateFunctionController";
 
@@ -43,16 +43,16 @@ router.patch("/user", new UpdateUserController().handle);
 //Profile
 router.post("/profile", new CreateProfileController().handle);
 router.get("/profile", new ListProfileController().handle);
+router.post(
+  "/profile/toggle-module",
+  new ToggleModuleToProfileController().handle
+);
 
 //Module
 router.post("/module", new CreateModuleController().handle);
 router.get("/module", new ListModuleController().handle);
 router.get("/module/:module_id", new GetModuleController().handle);
 router.patch("/module", new UpdateModuleController().handle);
-router.post(
-  "/module/toggle-transaction",
-  new ToggleTransactionToModuleController().handle
-);
 
 //Transaction
 router.post("/transaction", new CreateTransactionController().handle);
