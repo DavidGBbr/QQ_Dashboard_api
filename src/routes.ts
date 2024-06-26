@@ -8,6 +8,7 @@ import { CreateTransactionController } from "./controller/transaction/CreateTran
 import { CreateFunctionController } from "./controller/function/CreateFunctionController";
 
 import { GetUserController } from "./controller/user/GetUserController";
+import { GetProfileController } from "./controller/profile/GetProfileController";
 import { GetModuleController } from "./controller/module/GetModuleController";
 import { GetTransactionController } from "./controller/transaction/GetTransactionController";
 import { GetFunctionController } from "./controller/function/GetFunctionController";
@@ -43,6 +44,7 @@ router.patch("/user", new UpdateUserController().handle);
 //Profile
 router.post("/profile", new CreateProfileController().handle);
 router.get("/profile", new ListProfileController().handle);
+router.get("/profile/:profile_id", new GetProfileController().handle);
 router.post(
   "/profile/toggle-module",
   new ToggleModuleToProfileController().handle

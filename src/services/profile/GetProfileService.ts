@@ -1,15 +1,15 @@
 import prismaClient from "../../prisma";
 
 interface UserRequest {
-  module_id: number;
+  profile_id: number;
 }
 
-export class GetModuleService {
-  async execute({ module_id }: UserRequest) {
+export class GetProfileService {
+  async execute({ profile_id }: UserRequest) {
     try {
-      const response = await prismaClient.module.findFirst({
+      const response = await prismaClient.profile.findFirst({
         where: {
-          moduleId: module_id,
+          profileId: profile_id,
         },
       });
       return response;
