@@ -20,6 +20,7 @@ import { ListFunctionController } from "./controller/function/ListFunctionContro
 
 import { UpdateUserController } from "./controller/user/UpdateUserController";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
+import { ToggleTransactionToModuleController } from "./controller/module/ToggleTransactionToModuleController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 import { UpdateFunctionController } from "./controller/function/UpdateFunctionController";
 
@@ -48,6 +49,10 @@ router.post("/module", new CreateModuleController().handle);
 router.get("/module", new ListModuleController().handle);
 router.get("/module/:module_id", new GetModuleController().handle);
 router.patch("/module", new UpdateModuleController().handle);
+router.post(
+  "/module/toggle-transaction",
+  new ToggleTransactionToModuleController().handle
+);
 
 //Transaction
 router.post("/transaction", new CreateTransactionController().handle);
