@@ -31,6 +31,7 @@ import { DeleteFunctionController } from "./controller/function/DeleteFunctionCo
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { DeleteProfileController } from "./controller/profile/DeleteProfileController";
+import { DeleteModuleController } from "./controller/module/DeleteModuleController";
 
 export const router = Router();
 
@@ -54,6 +55,7 @@ router.post("/module", new CreateModuleController().handle);
 router.get("/module", new ListModuleController().handle);
 router.get("/module/:module_id", new GetModuleController().handle);
 router.patch("/module", new UpdateModuleController().handle);
+router.delete("/module/:module_id", new DeleteModuleController().handle);
 
 //Transaction
 router.post("/transaction", new CreateTransactionController().handle);
