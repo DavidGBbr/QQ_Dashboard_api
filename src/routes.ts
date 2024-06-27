@@ -20,7 +20,7 @@ import { ListTransactionController } from "./controller/transaction/ListTransact
 import { ListFunctionController } from "./controller/function/ListFunctionController";
 
 import { UpdateUserController } from "./controller/user/UpdateUserController";
-import { ToggleModuleToProfileController } from "./controller/profile/ToggleModuleToProfileController.ts";
+import { UpdateProfileController } from "./controller/profile/UpdateProfileController.ts";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
 import { UpdateFunctionController } from "./controller/function/UpdateFunctionController";
@@ -30,6 +30,7 @@ import { DeleteTransactionController } from "./controller/transaction/DeleteTran
 import { DeleteFunctionController } from "./controller/function/DeleteFunctionController";
 
 import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { DeleteProfileController } from "./controller/profile/DeleteProfileController";
 
 export const router = Router();
 
@@ -45,10 +46,8 @@ router.patch("/user", new UpdateUserController().handle);
 router.post("/profile", new CreateProfileController().handle);
 router.get("/profile", new ListProfileController().handle);
 router.get("/profile/:profile_id", new GetProfileController().handle);
-router.post(
-  "/profile/toggle-module",
-  new ToggleModuleToProfileController().handle
-);
+router.patch("/profile", new UpdateProfileController().handle);
+router.delete("/profile/:profile_id", new DeleteProfileController().handle);
 
 //Module
 router.post("/module", new CreateModuleController().handle);

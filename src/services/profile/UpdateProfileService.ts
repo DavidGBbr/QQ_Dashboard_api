@@ -1,15 +1,16 @@
 import prismaClient from "../../prisma";
 
-interface ToggleModuleRequest {
-  profile_id: number;
-  module_id: number;
+interface ProfileRequest {
+  profileId: number;
+  name?: string;
+  moduleId: number;
 }
 
-export class ToggleModuleToProfileService {
-  async execute({ profile_id, module_id }: ToggleModuleRequest) {
+export class UpdateProfileService {
+  async execute({ profileId, name, moduleId }: ProfileRequest) {
     try {
       const profileExists = await prismaClient.profile.findFirst({
-        where: { profileId: profile_id },
+        where: { profileId: profileId },
       });
 
       if (!profileExists) {
@@ -17,18 +18,25 @@ export class ToggleModuleToProfileService {
       }
 
       const moduleExists = await prismaClient.module.findFirst({
-        where: { moduleId: module_id },
+        where: { moduleId: moduleId },
       });
 
       if (!moduleExists) {
         throw new Error("Module does not exist!");
       }
 
+      if (name) {
+        await prismaClient.profile.update({
+          where: { profileId: profileId },
+          data: { name: name },
+        });
+      }
+
       const existingRelation = await prismaClient.profileModule.findUnique({
         where: {
           profileId_moduleId: {
-            profileId: profile_id,
-            moduleId: module_id,
+            profileId: profileId,
+            moduleId: moduleId,
           },
         },
       });
@@ -37,8 +45,8 @@ export class ToggleModuleToProfileService {
         await prismaClient.profileModule.delete({
           where: {
             profileId_moduleId: {
-              profileId: profile_id,
-              moduleId: module_id,
+              profileId: profileId,
+              moduleId: moduleId,
             },
           },
         });
@@ -49,8 +57,8 @@ export class ToggleModuleToProfileService {
       } else {
         await prismaClient.profileModule.create({
           data: {
-            profileId: profile_id,
-            moduleId: module_id,
+            profileId: profileId,
+            moduleId: moduleId,
           },
         });
         return {
