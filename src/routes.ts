@@ -20,6 +20,7 @@ import { ListTransactionController } from "./controller/transaction/ListTransact
 import { ListFunctionController } from "./controller/function/ListFunctionController";
 
 import { UpdateUserController } from "./controller/user/UpdateUserController";
+import { UpdatePasswordController } from "./controller/user/UpdatePasswordController";
 import { UpdateProfileController } from "./controller/profile/UpdateProfileController.ts";
 import { UpdateModuleController } from "./controller/module/UpdateModuleController";
 import { UpdateTransactionController } from "./controller/transaction/UpdateTransactionController";
@@ -42,6 +43,7 @@ router.get("/user", new ListUserController().handle);
 router.get("/users/:user_id", new GetUserController().handle);
 router.delete("/user/:user_id", new DeleteUserController().handle);
 router.patch("/user", new UpdateUserController().handle);
+router.patch("/forget/:token", new UpdatePasswordController().handle);
 
 //Profile
 router.post("/profile", new CreateProfileController().handle);
