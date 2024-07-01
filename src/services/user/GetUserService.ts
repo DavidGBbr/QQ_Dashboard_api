@@ -18,6 +18,11 @@ export class GetUserService {
           profileId: true,
           createdAt: true,
           updatedAt: true,
+          profile: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
       return response;

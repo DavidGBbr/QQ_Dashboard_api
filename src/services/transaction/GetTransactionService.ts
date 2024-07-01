@@ -11,16 +11,22 @@ export class GetTransactionService {
         where: {
           transactionId: transaction_id,
         },
-        select: {
-          transactionId: true,
-          name: true,
-          createdAt: true,
-          updatedAt: true,
+        include: {
           moduleTransaction: {
-            select: {
+            include: {
               module: {
                 select: {
                   moduleId: true,
+                  name: true,
+                },
+              },
+            },
+          },
+          transactionFunction: {
+            include: {
+              function: {
+                select: {
+                  functionId: true,
                   name: true,
                 },
               },

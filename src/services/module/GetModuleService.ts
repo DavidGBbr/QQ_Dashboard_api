@@ -11,6 +11,13 @@ export class GetModuleService {
         where: {
           moduleId: module_id,
         },
+        include: {
+          moduleTransaction: {
+            include: {
+              transaction: true,
+            },
+          },
+        },
       });
       return response;
     } catch (error) {
