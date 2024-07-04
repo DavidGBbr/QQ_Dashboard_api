@@ -30,51 +30,140 @@ import { DeleteUserController } from "./controller/user/DeleteUserController";
 import { DeleteTransactionController } from "./controller/transaction/DeleteTransactionController";
 import { DeleteFunctionController } from "./controller/function/DeleteFunctionController";
 
-import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { DeleteProfileController } from "./controller/profile/DeleteProfileController";
 import { DeleteModuleController } from "./controller/module/DeleteModuleController";
+import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 export const router = Router();
 
 //User
 router.post("/session", new AuthUserController().handle);
-router.post("/user", new CreateUserController().handle);
-router.get("/user", new ListUserController().handle);
-router.get("/users/:user_id", new GetUserController().handle);
-router.delete("/user/:user_id", new DeleteUserController().handle);
-router.patch("/user", new UpdateUserController().handle);
-router.patch("/forget/:token", new UpdatePasswordController().handle);
+router.post("/user", isAuthenticated, new CreateUserController().handle);
+router.get("/user", isAuthenticated, new ListUserController().handle);
+router.get("/users/:user_id", isAuthenticated, new GetUserController().handle);
+router.delete(
+  "/user/:user_id",
+  isAuthenticated,
+  new DeleteUserController().handle
+);
+router.patch("/user", isAuthenticated, new UpdateUserController().handle);
+router.patch(
+  "/forget/:token",
+  isAuthenticated,
+  new UpdatePasswordController().handle
+);
 
 //Profile
-router.post("/profile", new CreateProfileController().handle);
-router.get("/profile", new ListProfileController().handle);
-router.get("/profile/:profile_id", new GetProfileController().handle);
-router.patch("/profile", new UpdateProfileController().handle);
-router.delete("/profile/:profile_id", new DeleteProfileController().handle);
+router.post(
+  "/profile",
+  isAuthenticated,
+  isAuthenticated,
+  isAuthenticated,
+  new CreateProfileController().handle
+);
+router.get(
+  "/profile",
+  isAuthenticated,
+  isAuthenticated,
+  isAuthenticated,
+  new ListProfileController().handle
+);
+router.get(
+  "/profile/:profile_id",
+  isAuthenticated,
+  isAuthenticated,
+  isAuthenticated,
+  new GetProfileController().handle
+);
+router.patch(
+  "/profile",
+  isAuthenticated,
+  isAuthenticated,
+  isAuthenticated,
+  new UpdateProfileController().handle
+);
+router.delete(
+  "/profile/:profile_id",
+  isAuthenticated,
+  isAuthenticated,
+  isAuthenticated,
+  new DeleteProfileController().handle
+);
 
 //Module
-router.post("/module", new CreateModuleController().handle);
-router.get("/module", new ListModuleController().handle);
-router.get("/module/:module_id", new GetModuleController().handle);
-router.patch("/module", new UpdateModuleController().handle);
-router.delete("/module/:module_id", new DeleteModuleController().handle);
+router.post(
+  "/module",
+  isAuthenticated,
+  isAuthenticated,
+  new CreateModuleController().handle
+);
+router.get(
+  "/module",
+  isAuthenticated,
+  isAuthenticated,
+  new ListModuleController().handle
+);
+router.get(
+  "/module/:module_id",
+  isAuthenticated,
+  isAuthenticated,
+  new GetModuleController().handle
+);
+router.patch(
+  "/module",
+  isAuthenticated,
+  isAuthenticated,
+  new UpdateModuleController().handle
+);
+router.delete(
+  "/module/:module_id",
+  isAuthenticated,
+  isAuthenticated,
+  new DeleteModuleController().handle
+);
 
 //Transaction
-router.post("/transaction", new CreateTransactionController().handle);
-router.get("/transaction", new ListTransactionController().handle);
+router.post(
+  "/transaction",
+  isAuthenticated,
+  new CreateTransactionController().handle
+);
+router.get(
+  "/transaction",
+  isAuthenticated,
+  new ListTransactionController().handle
+);
 router.get(
   "/transaction/:transaction_id",
+  isAuthenticated,
   new GetTransactionController().handle
 );
-router.put("/transaction", new UpdateTransactionController().handle);
+router.put(
+  "/transaction",
+  isAuthenticated,
+  new UpdateTransactionController().handle
+);
 router.delete(
   "/transaction/:transaction_id",
+  isAuthenticated,
   new DeleteTransactionController().handle
 );
 
 //Function
-router.post("/function", new CreateFunctionController().handle);
-router.get("/function", new ListFunctionController().handle);
-router.get("/function/:function_id", new GetFunctionController().handle);
-router.put("/function", new UpdateFunctionController().handle);
-router.delete("/function/:function_id", new DeleteFunctionController().handle);
+router.post(
+  "/function",
+  isAuthenticated,
+  new CreateFunctionController().handle
+);
+router.get("/function", isAuthenticated, new ListFunctionController().handle);
+router.get(
+  "/function/:function_id",
+  isAuthenticated,
+  new GetFunctionController().handle
+);
+router.put("/function", isAuthenticated, new UpdateFunctionController().handle);
+router.delete(
+  "/function/:function_id",
+  isAuthenticated,
+  new DeleteFunctionController().handle
+);
