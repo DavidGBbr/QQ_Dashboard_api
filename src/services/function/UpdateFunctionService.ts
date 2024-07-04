@@ -19,6 +19,25 @@ export class UpdateFunctionService {
         throw new Error("Function does not exist!");
       }
 
+      const existingRelation = await prismaClient.transactionFunction.findFirst(
+        {
+          where: {
+            functionId: functionId,
+            transactionId: transactionId,
+          },
+          include: {
+            function: true,
+          },
+        }
+      );
+
+      if (existingRelation && existingRelation.function.name === name) {
+        throw new Error(
+          "Function with the same ID/Name is already related to this transaction!"
+        );
+      }
+
+      // Atualizar a função
       const functionUpdated = await prismaClient.function.update({
         where: {
           functionId: functionId,
@@ -58,7 +77,13 @@ export class UpdateFunctionService {
         functionTransaction: functionTransactionUpdated,
       };
     } catch (error) {
-      console.log(error);
+      if (
+        error.message ===
+        "Function with the same ID/Name is already related to this transaction!"
+      ) {
+        throw error;
+      }
+      console.error(error);
       throw new Error("Error updating the function!");
     }
   }

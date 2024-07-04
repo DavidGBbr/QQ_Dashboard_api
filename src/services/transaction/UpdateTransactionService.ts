@@ -21,6 +21,22 @@ export class UpdateTransactionService {
         throw new Error("Transaction does not exist!");
       }
 
+      const existingRelation = await prismaClient.moduleTransaction.findFirst({
+        where: {
+          transactionId: transactionId,
+          moduleId: moduleId,
+        },
+        include: {
+          transaction: true,
+        },
+      });
+
+      if (existingRelation && existingRelation.transaction.name === name) {
+        throw new Error(
+          "Transaction with the same ID/Name is already related to this module!"
+        );
+      }
+
       const transactionUpdated = await prismaClient.transaction.update({
         where: {
           transactionId: transactionId,
@@ -60,7 +76,13 @@ export class UpdateTransactionService {
         transactionModule: transactionModuleUpdated,
       };
     } catch (error) {
-      console.log(error);
+      if (
+        error.message ===
+        "Transaction with the same ID/Name is already related to this module!"
+      ) {
+        throw error;
+      }
+      console.error(error);
       throw new Error("Error updating the transaction!");
     }
   }
