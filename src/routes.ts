@@ -47,77 +47,34 @@ router.delete(
   new DeleteUserController().handle
 );
 router.patch("/user", isAuthenticated, new UpdateUserController().handle);
-router.patch(
-  "/forget/:token",
-  isAuthenticated,
-  new UpdatePasswordController().handle
-);
+router.patch("/forget/:token", new UpdatePasswordController().handle);
 
 //Profile
-router.post(
-  "/profile",
-  isAuthenticated,
-  isAuthenticated,
-  isAuthenticated,
-  new CreateProfileController().handle
-);
-router.get(
-  "/profile",
-  isAuthenticated,
-  isAuthenticated,
-  isAuthenticated,
-  new ListProfileController().handle
-);
+router.post("/profile", isAuthenticated, new CreateProfileController().handle);
+router.get("/profile", isAuthenticated, new ListProfileController().handle);
 router.get(
   "/profile/:profile_id",
-  isAuthenticated,
-  isAuthenticated,
   isAuthenticated,
   new GetProfileController().handle
 );
-router.patch(
-  "/profile",
-  isAuthenticated,
-  isAuthenticated,
-  isAuthenticated,
-  new UpdateProfileController().handle
-);
+router.patch("/profile", isAuthenticated, new UpdateProfileController().handle);
 router.delete(
   "/profile/:profile_id",
-  isAuthenticated,
-  isAuthenticated,
   isAuthenticated,
   new DeleteProfileController().handle
 );
 
 //Module
-router.post(
-  "/module",
-  isAuthenticated,
-  isAuthenticated,
-  new CreateModuleController().handle
-);
-router.get(
-  "/module",
-  isAuthenticated,
-  isAuthenticated,
-  new ListModuleController().handle
-);
+router.post("/module", isAuthenticated, new CreateModuleController().handle);
+router.get("/module", isAuthenticated, new ListModuleController().handle);
 router.get(
   "/module/:module_id",
-  isAuthenticated,
   isAuthenticated,
   new GetModuleController().handle
 );
-router.patch(
-  "/module",
-  isAuthenticated,
-  isAuthenticated,
-  new UpdateModuleController().handle
-);
+router.patch("/module", isAuthenticated, new UpdateModuleController().handle);
 router.delete(
   "/module/:module_id",
-  isAuthenticated,
   isAuthenticated,
   new DeleteModuleController().handle
 );
