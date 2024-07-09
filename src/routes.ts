@@ -33,6 +33,7 @@ import { DeleteFunctionController } from "./controller/function/DeleteFunctionCo
 import { DeleteProfileController } from "./controller/profile/DeleteProfileController";
 import { DeleteModuleController } from "./controller/module/DeleteModuleController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { GetProfilesByNameController } from "./controller/profile/GetProfilesByNameController";
 
 export const router = Router();
 
@@ -56,6 +57,11 @@ router.get(
   "/profile/:profile_id",
   isAuthenticated,
   new GetProfileController().handle
+);
+router.get(
+  "/profiles/search",
+  isAuthenticated,
+  new GetProfilesByNameController().handle
 );
 router.patch("/profile", isAuthenticated, new UpdateProfileController().handle);
 router.delete(
