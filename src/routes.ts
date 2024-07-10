@@ -34,6 +34,7 @@ import { DeleteProfileController } from "./controller/profile/DeleteProfileContr
 import { DeleteModuleController } from "./controller/module/DeleteModuleController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { GetProfilesByNameController } from "./controller/profile/GetProfilesByNameController";
+import { GetModulesByNameController } from "./controller/module/GetModulesByNameController";
 
 export const router = Router();
 
@@ -77,6 +78,11 @@ router.get(
   "/module/:module_id",
   isAuthenticated,
   new GetModuleController().handle
+);
+router.get(
+  "/modules/search",
+  isAuthenticated,
+  new GetModulesByNameController().handle
 );
 router.patch("/module", isAuthenticated, new UpdateModuleController().handle);
 router.delete(
