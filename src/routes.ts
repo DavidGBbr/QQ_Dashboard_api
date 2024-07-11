@@ -35,6 +35,7 @@ import { DeleteModuleController } from "./controller/module/DeleteModuleControll
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { GetProfilesByNameController } from "./controller/profile/GetProfilesByNameController";
 import { GetModulesByNameController } from "./controller/module/GetModulesByNameController";
+import { GetTransactionsByNameController } from "./controller/transaction/GetTransactionsByNameController";
 
 export const router = Router();
 
@@ -106,6 +107,11 @@ router.get(
   "/transaction/:transaction_id",
   isAuthenticated,
   new GetTransactionController().handle
+);
+router.get(
+  "/transactions/search",
+  isAuthenticated,
+  new GetTransactionsByNameController().handle
 );
 router.put(
   "/transaction",
