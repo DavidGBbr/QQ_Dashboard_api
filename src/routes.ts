@@ -36,6 +36,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { GetProfilesByNameController } from "./controller/profile/GetProfilesByNameController";
 import { GetModulesByNameController } from "./controller/module/GetModulesByNameController";
 import { GetTransactionsByNameController } from "./controller/transaction/GetTransactionsByNameController";
+import { GetFunctionsByNameController } from "./controller/function/GetFunctionsByNameController";
 
 export const router = Router();
 
@@ -135,6 +136,11 @@ router.get(
   "/function/:function_id",
   isAuthenticated,
   new GetFunctionController().handle
+);
+router.get(
+  "/functions/search",
+  isAuthenticated,
+  new GetFunctionsByNameController().handle
 );
 router.put("/function", isAuthenticated, new UpdateFunctionController().handle);
 router.delete(
